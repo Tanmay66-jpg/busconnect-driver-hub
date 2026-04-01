@@ -32,15 +32,33 @@ const TILE_ATTR =
 /* ------------------------------------------------------------------ */
 const busIcon = L.divIcon({
   className: "",
-  html: `<div style="
+  html: `<div class="bus-marker-animation" style="
     display:flex;align-items:center;justify-content:center;
-    width:32px;height:32px;border-radius:50%;
-    background:hsl(217 91% 55%);border:3px solid #fff;
-    box-shadow:0 2px 8px rgba(0,0,0,0.3), 0 0 0 4px rgba(59,130,246,0.25);
-    font-size:16px;line-height:1;
-  ">🚌</div>`,
-  iconSize: [32, 32],
-  iconAnchor: [16, 16],
+    width:42px;height:52px;
+  ">
+    <svg width="42" height="52" viewBox="0 0 42 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Pin background -->
+      <path d="M21 52C21 52 42 34.0909 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 34.0909 21 52 21 52Z" fill="#EA580C"/>
+      <path d="M21 50C21 50 40 33.1818 40 21C40 10.5066 31.4934 2 21 2C10.5066 2 2 10.5066 2 21C2 33.1818 21 50 21 50Z" fill="#F97316"/>
+      <!-- White circle inside -->
+      <circle cx="21" cy="21" r="15" fill="white"/>
+      <!-- Bus Icon (simplified path) -->
+      <path d="M29.5 24.5V17.5C29.5 15.0147 27.4853 13 25 13H17C14.5147 13 12.5 15.0147 12.5 17.5V24.5M29.5 24.5H12.5M29.5 24.5V27C29.5 27.5523 29.0523 28 28.5 28H13.5C12.9477 28 12.5 27.5523 12.5 27V24.5M15.5 28V30M26.5 28V30M16 23V25M26 23V25M17 17H25M15 17V21M27 17V21" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <style>
+    @keyframes bus-float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0px); }
+    }
+    .bus-marker-animation {
+      animation: bus-float 2s ease-in-out infinite;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    }
+  </style>`,
+  iconSize: [42, 52],
+  iconAnchor: [21, 52],
 });
 
 function makeStopIcon(status: string) {
