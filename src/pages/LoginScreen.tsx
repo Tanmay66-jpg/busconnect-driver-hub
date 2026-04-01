@@ -17,19 +17,27 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtp, setShowOtp] = useState(false);
+  const [generatedOtp, setGeneratedOtp] = useState("");
 
   const handleSendOtp = () => {
     if (phone.length < 10) {
       toast.error("Invalid Phone", { description: "Please enter a valid phone number" });
       return;
     }
+    const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    setGeneratedOtp(newOtp);
     setShowOtp(true);
-    toast.success("OTP Sent!", { description: "Verification code sent to " + phone });
+    toast.success("OTP Sent!", { description: `Your verification code is: ${newOtp}` });
   };
 
   const handleLogin = async () => {
     if (tab === "phone" && !showOtp) {
       handleSendOtp();
+      return;
+    }
+
+    if (tab === "phone" && otp !== generatedOtp) {
+      toast.error("Invalid OTP", { description: "The code you entered is incorrect." });
       return;
     }
 
@@ -39,12 +47,12 @@ const LoginScreen = () => {
         if (tab === "email" && email && password) {
           await signInWithEmailAndPassword(auth, email, password);
         } else {
-          // Verify OTP (Mock logic since real Phone Auth requires ReCAPTCHA interaction)
-          if (tab === "phone" && otp !== "123456" && otp.length > 0) {
-            // Allow any OTP for testing if needed, or enforce one
-            console.log("Mock OTP verified:", otp);
+          try {
+            // Perform sign-in (anonymous fallback for dummy phone auth)
+            await signInAnonymously(auth);
+          } catch (anonErr: any) {
+            console.warn("Anonymous app sign-in disabled, continuing to dashboard locally:", anonErr.message);
           }
-          await signInAnonymously(auth);
         }
       }
       navigate("/dashboard");
