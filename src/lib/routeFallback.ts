@@ -1,0 +1,73 @@
+import type { RoutePayload } from "@/types/route";
+
+/** Mirrors `server/index.mjs` so the map works when the API is down (e.g. only `vite` running). */
+export const FALLBACK_ROUTE_204C: RoutePayload = {
+  id: "204C",
+  label: "Chandigarh → Mohali",
+  busId: "BC-4029",
+  polyline: [
+    [30.7333, 76.778],
+    [30.728, 76.765],
+    [30.72, 76.75],
+    [30.712, 76.732],
+    [30.7046, 76.7179],
+  ],
+  stops: [
+    {
+      id: "s1",
+      name: "ISBT Sector 43, Chandigarh",
+      lat: 30.7333,
+      lng: 76.778,
+      order: 0,
+      status: "done",
+      time: "Arrived 08:00",
+      distance: "0 km",
+    },
+    {
+      id: "s2",
+      name: "Sector 17 Plaza",
+      lat: 30.728,
+      lng: 76.765,
+      order: 1,
+      status: "current",
+      time: "In Transit",
+      distance: "5.2 km from start",
+    },
+    {
+      id: "s3",
+      name: "Zakir Rose Garden",
+      lat: 30.72,
+      lng: 76.75,
+      order: 2,
+      status: "upcoming",
+      time: "Scheduled 08:15",
+      distance: "8.4 km",
+    },
+    {
+      id: "s4",
+      name: "Phase 7, Mohali",
+      lat: 30.712,
+      lng: 76.732,
+      order: 3,
+      status: "upcoming",
+      time: "Scheduled 08:30",
+      distance: "12.1 km",
+    },
+    {
+      id: "s5",
+      name: "Aerocity, Mohali",
+      lat: 30.7046,
+      lng: 76.7179,
+      order: 4,
+      status: "upcoming",
+      time: "Scheduled 08:45",
+      distance: "15.5 km",
+    },
+  ],
+  vehicle: {
+    routeId: "204C",
+    lat: 30.724,
+    lng: 76.758,
+    updatedAt: Date.now(),
+  },
+};
